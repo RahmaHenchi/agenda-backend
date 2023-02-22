@@ -36,9 +36,11 @@ const createEvent = async (req, res) => {
                 end: req.body.price,
                 user: req.user._id
             })
-            await event.save()
-            res.status(201).json({message: "Event created successfully"})
-        }    
+            const savedEvent = await event.save()
+            res.status(201).json({
+                message: "Event created successfully",
+                event: savedEvent
+            })   
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -51,7 +53,7 @@ const updateEvent = async (req, res) => {
         if (validationResult.error) {
             res.json(validationResult)
         } else {
-            const event = await Event.findOneAndUpdate({ _id: eventToUpdateId, user: req.user._id }, { $set: req.body })
+            const event = await Event.findOneAndUpdate({ _id: eventToUpdateId, user: req.user._id }, { $set: req.body }, { new: true })
             if (!event) {
                 res.status(404).json({error: "Event not found"})
             } else {
