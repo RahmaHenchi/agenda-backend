@@ -40,7 +40,8 @@ const createEvent = async (req, res) => {
             res.status(201).json({
                 message: "Event created successfully",
                 event: savedEvent
-            })   
+            })
+        }   
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -51,7 +52,7 @@ const updateEvent = async (req, res) => {
         const eventToUpdateId = req.params.id
         const validationResult = eventValidator.validate(req.body, { abortEarly: false })
         if (validationResult.error) {
-            res.json(validationResult)
+            res.status(400).json(validationResult)
         } else {
             const event = await Event.findOneAndUpdate({ _id: eventToUpdateId, user: req.user._id }, { $set: req.body }, { new: true })
             if (!event) {
