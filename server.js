@@ -21,7 +21,7 @@ app.get('/events', async (req, res) => {
         const events = await Event.find()
         res.status(200).json(events)
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(500).json({error: error.message })
     }
 })
 
@@ -34,7 +34,7 @@ app.get('/events/:id', async (req, res) => {
             res.status(404).json({ error: "Event not found" })
         }
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(500).json({error: error.message})
     }
 })
 
@@ -54,7 +54,7 @@ app.post('/events', async (req, res) => {
             res.status(201).json({ message: "Event created successfully" })
         }
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(500).json({error: error.message})
     }
 })
 
