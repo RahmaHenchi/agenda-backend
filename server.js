@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false)
 
 const eventsRouter = require('./routes/events');
-
+const usersRouter = require('./routes/users');
 
 require('dotenv').config();
 
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/events', eventsRouter);
-
+app.use('/auth', usersRouter);
 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.DB_CONNECTION)
