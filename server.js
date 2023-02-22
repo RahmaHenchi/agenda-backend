@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', false)
 
 const Event = require('./models/Event');
 
 require('dotenv').config();
 
 const { eventValidator } = require('./utilities/validators');
-
 
 const app = express();
 
@@ -15,6 +15,28 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.json({ message: "Mercado Marketplace API v1" })
 });
+
+app.get('/events', async (req, res) => {
+    try {
+        const events = await Event.find()
+        res.status(200).json(events)
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+})
+
+app.get('/events/:id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id)
+        if (event) {
+            res.status(200).json(event)
+        } else {
+            res.status(404).json({ error: "Event not found" })
+        }
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+})
 
 app.post('/events', async (req, res) => {
     try {
