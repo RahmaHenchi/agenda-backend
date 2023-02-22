@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const EventSchema = Schema({
+const eventSchema = Schema({
   title: {
     type: String,
     required: true,
@@ -22,5 +22,5 @@ const EventSchema = Schema({
   },
 });
 
-const Event = mongoose.model('Event', EventSchema)
+const Event = mongoose.model('Event', eventSchema)
 module.exports = Event
