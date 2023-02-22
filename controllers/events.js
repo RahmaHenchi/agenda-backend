@@ -36,7 +36,10 @@ const createEvent = async (req, res) => {
                 end: req.body.price,
                 user: req.user._id
             })
-            const savedEvent = await event.save()
+            let savedEvent = await event.save()
+            req.user.password = undefined
+            req.user.__v = undefined
+            savedEvent.user = req.user
             res.status(201).json({
                 message: "Event created successfully",
                 event: savedEvent
