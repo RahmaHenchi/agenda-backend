@@ -1,5 +1,6 @@
-const { Schema, model } = require("mongoose");
-const eventSchema = Schema({
+const mongoose = require('mongoose');
+
+const eventSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -16,7 +17,7 @@ const eventSchema = Schema({
     required: true,
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
