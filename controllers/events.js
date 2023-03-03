@@ -25,15 +25,15 @@ const getOneEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
     try {
-        const validationResult = itemValidator.validate(req.body, { abortEarly: false })
+        const validationResult = eventValidator.validate(req.body, { abortEarly: false })
         if (validationResult.error) {
             res.status(400).json(validationResult)
         } else {
             const event = new Event({
                 title: req.body.title,
                 notes: req.body.notes,
-                start: req.body.photo,
-                end: req.body.price,
+                start: req.body.start,
+                end: req.body.end,
                 user: req.user._id
             })
             let savedEvent = await event.save()

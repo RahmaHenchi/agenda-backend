@@ -56,10 +56,11 @@ const login = async (req, res) => {
                 return;
             }
             user.password = undefined;
+            const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
             res.status(200).json({
                 message: `Welcome ${user.userName}`,
                 user,
-                token: 'token'
+                token
             });
         }
     } catch (error) {
