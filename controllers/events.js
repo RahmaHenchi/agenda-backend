@@ -3,7 +3,9 @@ const { eventValidator } = require('../utilities/validators')
 
 const getAllEvents = async (req, res) => {
     try {
-        const events = await Event.find().populate('user', 'userName email')
+        const userId = req.params.id
+        /* console.log(userId) */
+        const events = await Event.find( { user:userId } ).populate('user', 'userName email')
         res.status(200).json(events)
     } catch (error) {
         res.status(500).json({ error: error.message })
