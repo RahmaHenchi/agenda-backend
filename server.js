@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: [ "http://localhost:3000" ] })); //WEB_APP_URL
+app.use(cors({ credentials: true, origin: [ process.env.WEB_APP_URL ] }));
 app.use(express.json())
 
 app.get('/', (req, res) => {
